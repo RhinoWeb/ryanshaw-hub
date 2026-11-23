@@ -3,330 +3,420 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Ryan Shaw — AI Agency in a Box</title>
-  <meta name="description" content="Ryan Shaw builds AI-native businesses, products, and the systems that make the work run.">
-  <meta name="theme-color" content="#f4f5f6">
+  <title>Ryan Shaw | AI consulting for business owners</title>
+  <meta name="description" content="Ryan Shaw builds AI systems that run real businesses. Book a free 30-minute call and find out what he would build first in yours.">
+  <meta name="theme-color" content="#6a9f99">
+  <meta property="og:title" content="Ryan Shaw | AI consulting for business owners">
+  <meta property="og:description" content="Book a free 30-minute call. Tell me where you're stuck and I'll tell you what I would build first.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ryanshaw.xyz/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1/dist/fonts/geist-sans/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* Palette is taken from the hero photo: a copper wall gone green, a navy blazer. */
     :root {
-      --page: #f4f5f6;
-      --card: #ffffff;
-      --raised: #fafafa;
-      --foreground: #292b2e;
-      --secondary: #5d6268;
-      --tertiary: #7a8087;
-      --inverse-muted: #c8cacc;
-      --border: #e3e5e7;
-      --accent: #c24124;
-      --accent-soft: rgba(194, 65, 36, .08);
-      --focus: rgba(194, 65, 36, .28);
-      --shadow-card: 0 1px 2px rgba(27, 29, 31, .03), 0 8px 28px rgba(27, 29, 31, .045);
-      --shadow-raised: 0 2px 4px rgba(27, 29, 31, .035), 0 18px 48px rgba(27, 29, 31, .07);
-      --shadow-control: 0 1px 2px rgba(27, 29, 31, .04);
-      --radius-control: 10px;
-      --radius-card: 16px;
-      --radius-inner: 12px;
-      --fast: 180ms;
-      --normal: 320ms;
-      --slow: 600ms;
-      --silk: cubic-bezier(.22, 1, .36, 1);
-      --max: 1200px;
+      --patina: #6a9f99;        /* the wall */
+      --patina-light: #86b5ae;  /* raised edge of an embossed letter */
+      --patina-shade: #4c817c;  /* shadow side of an embossed letter */
+      --deep: #102b29;          /* old copper in shadow */
+      --ink: #0d1f1e;
+      --mist: #eef3f1;          /* page */
+      --white: #ffffff;
+      --copper: #b4531f;        /* bare copper: the one action colour */
+      --copper-dark: #983f12;
+      --muted: #4b5f5c;
+      --line: #d3dedb;
+      --serif: "STIX Two Text", "Times New Roman", serif;
+      --sans: "Schibsted Grotesk", system-ui, sans-serif;
+      --max: 1120px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--page);
-      color: var(--foreground);
-      font-family: "Geist", "Inter", system-ui, sans-serif;
-      font-size: 16px;
+      background: var(--mist);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
-    img { display: block; max-width: 100%; }
-    a, button { font: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; }
-    button { color: inherit; }
-    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-    .shell { width: min(calc(100% - 48px), var(--max)); margin-inline: auto; }
-    .skip-link { position: fixed; inset: -80px auto auto 16px; z-index: 100; padding: 12px 16px; background: var(--foreground); color: var(--card); border-radius: var(--radius-control); }
-    .skip-link:focus { top: 16px; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.015em; text-wrap: balance; }
+    :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    .on-dark :focus-visible { outline-color: var(--white); }
+    .wrap { width: min(100% - 48px, var(--max)); margin-inline: auto; }
+    .skip { position: absolute; left: 16px; top: -80px; z-index: 50; padding: 12px 16px; background: var(--ink); color: var(--white); border-radius: 6px; }
+    .skip:focus { top: 16px; }
 
-    .site-header { position: relative; z-index: 20; }
-    .header-inner { height: 80px; display: flex; align-items: center; justify-content: flex-end; }
-    .header-links { display: flex; align-items: center; gap: 8px; }
-    .header-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: var(--radius-control); color: var(--secondary); text-decoration: none; font-size: 14px; transition: background var(--fast) ease, color var(--fast) ease; }
-    .header-links a:hover { background: var(--card); color: var(--foreground); }
-
-    .page-stack { display: grid; gap: 24px; padding-bottom: 24px; }
-    .surface { background: var(--card); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
-
-    .hero {
-      min-height: 680px;
-      display: grid;
-      grid-template-columns: .82fr 1.18fr;
-      gap: 64px;
-      align-items: center;
-      padding: 64px;
-      overflow: hidden;
+    /* The one action on the page. */
+    .book {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 56px; padding: 0 30px;
+      background: var(--copper); color: var(--white);
+      border-radius: 4px;
+      font-family: var(--sans); font-size: 17px; font-weight: 600; text-decoration: none;
+      box-shadow: 0 1px 0 rgba(255,255,255,.25) inset, 0 10px 24px -10px rgba(13,31,30,.55);
+      transition: background 160ms ease, transform 160ms var(--ease);
     }
-    .hero-copy { position: relative; z-index: 3; max-width: 520px; }
-    .overline { margin: 0 0 24px; color: var(--tertiary); font-size: 13px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 {
-      margin-bottom: 24px;
-      font-family: "Newsreader", Georgia, serif;
-      font-size: clamp(52px, 5.2vw, 64px);
-      font-weight: 600;
-      letter-spacing: -.035em;
-      line-height: .98;
-      text-wrap: balance;
+    .book:hover { background: var(--copper-dark); transform: translateY(-1px); }
+    .book:active { transform: translateY(0); }
+    .book-small { min-height: 44px; padding: 0 18px; font-size: 15px; box-shadow: none; }
+    .book-note { margin-top: 14px; font-size: 15px; }
+
+    /* ---------- Hero: the wall ---------- */
+    .wall { background: var(--patina); color: var(--ink); position: relative; overflow: hidden; }
+    .wall::before { /* panel seams, like the sheets of copper in the photo */
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent calc(33.33% - 1px), rgba(13,31,30,.13) 33.33%, transparent calc(33.33% + 1px)),
+        linear-gradient(90deg, transparent calc(66.66% - 1px), rgba(13,31,30,.13) 66.66%, transparent calc(66.66% + 1px)),
+        linear-gradient(180deg, rgba(255,255,255,.07), transparent 40%, rgba(13,31,30,.10));
     }
-    .hero-copy > p:not(.overline) { max-width: 48ch; margin-bottom: 32px; color: var(--secondary); font-size: 18px; line-height: 1.65; }
-    .primary-action { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 8px; padding: 0 24px; border: 0; border-radius: var(--radius-control); background: var(--accent); color: var(--card); font-size: 16px; font-weight: 600; text-decoration: none; box-shadow: var(--shadow-control); transition: transform var(--fast) var(--silk), filter var(--fast) ease; }
-    .primary-action:hover { transform: translateY(-2px); filter: brightness(.95); }
-    .primary-action:active { transform: translateY(0); }
-
-    .product-deck { position: relative; min-height: 520px; perspective: 1400px; }
-    .deck-card { position: absolute; overflow: hidden; border-radius: var(--radius-inner); background: var(--raised); box-shadow: var(--shadow-raised); transition: transform var(--slow) var(--silk); }
-    .deck-card img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
-    .deck-main { width: 88%; height: 430px; right: 0; top: 44px; z-index: 3; transform: rotateY(-4deg) rotateX(1deg); }
-    .deck-back-one { width: 62%; height: 290px; left: 0; top: 0; z-index: 1; transform: translate(-2%, 4%) rotate(-3deg); }
-    .deck-back-two { width: 58%; height: 270px; left: 7%; bottom: 0; z-index: 2; transform: translate(-1%, -1%) rotate(3deg); }
-    .product-deck:hover .deck-main { transform: rotateY(-1deg) translateX(8px); }
-    .product-deck:hover .deck-back-one { transform: translate(-8%, -1%) rotate(-5deg); }
-    .product-deck:hover .deck-back-two { transform: translate(-6%, 3%) rotate(5deg); }
-    .deck-caption { position: absolute; z-index: 4; right: 16px; bottom: 0; padding: 8px 12px; border-radius: var(--radius-control); background: var(--card); color: var(--secondary); box-shadow: var(--shadow-card); font-size: 14px; }
-
-    .now-card { min-height: 112px; display: grid; grid-template-columns: 130px 1fr auto; gap: 32px; align-items: center; padding: 24px 32px; }
-    .now-label { color: var(--tertiary); font-size: 14px; font-weight: 600; }
-    .now-title { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
-    .now-copy { margin: 4px 0 0; color: var(--secondary); font-size: 16px; }
-    .text-action { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; padding: 0 4px; color: var(--accent); font-weight: 600; text-decoration: none; }
-    .text-action span { transition: transform var(--fast) var(--silk); }
-    .text-action:hover span { transform: translateX(4px); }
-
-    .work-surface { padding: 48px; }
-    .section-heading { display: grid; grid-template-columns: .7fr 1.3fr; gap: 48px; align-items: end; margin-bottom: 40px; }
-    .section-heading h2, .principles h2, .closing h2 { margin-bottom: 0; font-size: clamp(36px, 4vw, 48px); font-weight: 600; letter-spacing: -.03em; line-height: 1.05; }
-    .section-heading p { margin: 0; max-width: 52ch; color: var(--secondary); font-size: 17px; }
-    .workbench { display: grid; grid-template-columns: 360px 1fr; gap: 32px; padding: 16px; border-radius: var(--radius-inner); background: var(--raised); }
-    .work-menu { display: flex; flex-direction: column; gap: 8px; }
-    .work-option { min-height: 72px; width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 16px; border: 0; border-radius: var(--radius-control); background: transparent; text-align: left; cursor: pointer; transition: background var(--fast) ease, color var(--fast) ease; }
-    .work-option:hover { background: var(--card); }
-    .work-option[aria-selected="true"] { background: var(--card); color: var(--accent); box-shadow: var(--shadow-control); }
-    .work-option strong { display: block; font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
-    .work-option small { display: block; margin-top: 2px; color: var(--tertiary); font-size: 14px; }
-    .work-option svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
-    .work-preview { min-width: 0; overflow: hidden; border-radius: var(--radius-inner); background: var(--card); box-shadow: var(--shadow-card); }
-    .preview-image-wrap { height: 352px; overflow: hidden; background: var(--raised); }
-    .preview-image { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: opacity var(--normal) var(--silk), transform var(--normal) var(--silk); }
-    .preview-image.is-changing { opacity: .25; transform: scale(.99); }
-    .preview-copy { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding: 24px; }
-    .preview-copy h3 { margin-bottom: 6px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
-    .preview-copy p { margin: 0; max-width: 54ch; color: var(--secondary); font-size: 16px; }
-
-    .principles { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; padding: 48px; }
-    .principle-list { display: grid; }
-    .principle { display: grid; grid-template-columns: 136px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--border); }
-    .principle:first-child { border-top: 0; padding-top: 0; }
-    .principle:last-child { padding-bottom: 0; }
-    .principle strong { font-size: 14px; font-weight: 600; }
-    .principle p { margin: 0; color: var(--secondary); font-size: 16px; }
-
-    .closing { display: grid; grid-template-columns: 1.2fr .8fr; gap: 64px; align-items: end; padding: 56px; background: var(--foreground); color: var(--card); }
-    .closing h2 { font-family: "Newsreader", Georgia, serif; font-size: clamp(42px, 4.8vw, 56px); font-weight: 500; }
-    .closing-side p { margin-bottom: 24px; color: var(--inverse-muted); font-size: 17px; }
-
-    footer { display: flex; min-height: 80px; align-items: center; justify-content: space-between; gap: 24px; color: var(--tertiary); font-size: 14px; }
-    .social-links { display: flex; flex-wrap: wrap; gap: 8px; }
-    .social-links a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 8px; border-radius: var(--radius-control); text-decoration: none; }
-    .social-links a:hover { background: var(--card); color: var(--foreground); }
-
-    .product-deck { animation: silk-deck 800ms var(--silk) 80ms both; }
-    @keyframes silk-deck { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: none; } }
-
-    @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px; }
-      .hero-copy { max-width: 720px; }
-      .product-deck { min-height: 480px; }
-      .workbench { grid-template-columns: 1fr; }
-      .work-menu { display: grid; grid-template-columns: repeat(5, minmax(160px, 1fr)); overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
-      .work-option { min-width: 160px; }
-      .principles { grid-template-columns: 1fr; gap: 40px; }
+    .top { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; }
+    .name { font-family: var(--serif); font-size: 22px; font-weight: 600; text-decoration: none; letter-spacing: -.01em; }
+    .hero { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: end; padding: 48px 0 0; }
+    .hero-copy { padding-bottom: 88px; }
+    .hero h1 { font-size: clamp(44px, 6.4vw, 84px); line-height: .98; margin-bottom: 28px; }
+    .lede { max-width: 33em; font-size: 20px; line-height: 1.55; margin-bottom: 34px; }
+    .portrait { position: relative; align-self: end; justify-self: end; width: min(100%, 400px); }
+    .portrait img {
+      width: 100%; aspect-ratio: 632 / 824; object-fit: cover; object-position: top;
+      /* let the photographed wall melt into the page's wall */
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent), linear-gradient(180deg, transparent, #000 12%);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent), linear-gradient(180deg, transparent, #000 12%);
+      mask-composite: intersect;
     }
 
+    /* ---------- Facts ---------- */
+    .facts { background: var(--deep); color: var(--white); }
+    .facts dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .facts div { padding: 34px 28px 36px 0; }
+    .facts div + div { padding-left: 28px; border-left: 1px solid rgba(255,255,255,.14); }
+    .facts dt { font-family: var(--serif); font-size: clamp(34px, 3.6vw, 46px); line-height: 1; margin-bottom: 10px; color: var(--patina-light); }
+    .facts dd { margin: 0; font-size: 15px; line-height: 1.45; color: #d6e2df; }
+
+    /* ---------- Sections ---------- */
+    .band { padding: 112px 0; }
+    .band h2 { font-size: clamp(34px, 4.4vw, 54px); line-height: 1.04; }
+    .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: end; margin-bottom: 64px; }
+    .intro p { color: var(--muted); font-size: 19px; max-width: 30em; }
+
+    /* What I build */
+    .builds { display: grid; gap: 72px; }
+    .build { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; }
+    .build:nth-child(even) .shot { order: 2; }
+    .shot { border-radius: 6px; overflow: hidden; background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -34px rgba(13,31,30,.45); }
+    .shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
+    .build h3 { font-family: var(--serif); font-weight: 500; font-size: 32px; line-height: 1.1; letter-spacing: -.01em; margin-bottom: 14px; }
+    .build p { color: var(--muted); max-width: 27em; }
+    .build .runs { margin-top: 18px; font-size: 15px; color: var(--ink); }
+    .build .runs a { text-underline-offset: 3px; }
+
+    /* The 30 minutes: raised numerals, like the letters on the wall */
+    .minutes { background: var(--patina); position: relative; }
+    .minutes h2 { margin-bottom: 18px; }
+    .minutes .sub { font-size: 19px; max-width: 30em; margin-bottom: 64px; }
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .steps li { padding: 0 32px 0 0; }
+    .steps li + li { padding-left: 32px; border-left: 1px solid rgba(13,31,30,.2); }
+    .raised {
+      display: block; font-family: var(--serif); font-style: italic; font-weight: 500;
+      font-size: clamp(72px, 9vw, 128px); line-height: .9; margin-bottom: 22px;
+      color: var(--patina);
+      text-shadow: -1px -1px 0 var(--patina-light), 1px 1px 0 var(--patina-shade), 3px 4px 6px rgba(13,31,30,.38);
+    }
+    .raised small { font-size: .32em; font-style: normal; letter-spacing: 0; margin-left: .12em; text-shadow: -1px -1px 0 var(--patina-light), 1px 1px 0 var(--patina-shade), 2px 2px 3px rgba(13,31,30,.3); }
+    .steps h3 { font-family: var(--sans); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    .steps p { max-width: 22em; }
+    .minutes .after { margin-top: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 22px 28px; }
+    .minutes .after p { max-width: 30em; }
+
+    /* Fit */
+    .fit { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; }
+    .fit ul { list-style: none; margin: 0; padding: 0; }
+    .fit li { padding: 22px 0; border-top: 1px solid var(--line); font-size: 20px; line-height: 1.45; }
+    .fit li:last-child { border-bottom: 1px solid var(--line); }
+
+    /* About */
+    .about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about img { border-radius: 6px; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+    .about h2 { margin-bottom: 24px; }
+    .about p { color: var(--muted); max-width: 31em; }
+    .about p + p { margin-top: 16px; }
+
+    /* Questions */
+    .qa { max-width: 760px; }
+    .qa h2 { margin-bottom: 36px; }
+    details { border-top: 1px solid var(--line); }
+    details:last-of-type { border-bottom: 1px solid var(--line); }
+    summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 24px; padding: 22px 0; font-size: 20px; font-weight: 500; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-family: var(--serif); font-size: 26px; line-height: 1; color: var(--copper); transition: transform 200ms var(--ease); }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { padding: 0 0 24px; color: var(--muted); max-width: 36em; }
+
+    /* Close */
+    .close { background: var(--deep); color: var(--white); text-align: center; padding: 128px 0; }
+    .close h2 { font-size: clamp(42px, 6vw, 80px); line-height: 1; margin-bottom: 24px; }
+    .close p { color: #d6e2df; font-size: 20px; max-width: 28em; margin: 0 auto 36px; }
+    .close .book-note { color: #b9cbc7; font-size: 15px; margin: 16px auto 0; }
+
+    footer { background: var(--deep); color: #b9cbc7; border-top: 1px solid rgba(255,255,255,.12); font-size: 15px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; padding: 22px 0; }
+    footer nav { display: flex; flex-wrap: wrap; gap: 4px 22px; }
+    footer a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 3px; }
+
+    /* Phone: a booking bar that stays in reach */
+    .dock { display: none; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 8px; padding-top: 24px; }
+      .hero-copy { padding-bottom: 8px; }
+      .portrait { justify-self: center; width: min(78%, 340px); }
+      .facts dl { grid-template-columns: 1fr 1fr; }
+      .facts div { padding: 26px 20px 26px 0; }
+      .facts div + div { padding-left: 20px; }
+      .facts div:nth-child(3) { padding-left: 0; border-left: 0; }
+      .facts div:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.14); }
+      .band { padding: 76px 0; }
+      .intro, .build, .fit, .about-grid { grid-template-columns: 1fr; gap: 24px; }
+      .intro { margin-bottom: 44px; }
+      .builds { gap: 56px; }
+      .build:nth-child(even) .shot { order: 0; }
+      .steps { grid-template-columns: 1fr; }
+      .steps li, .steps li + li { padding: 28px 0; border-left: 0; }
+      .steps li + li { border-top: 1px solid rgba(13,31,30,.2); }
+      .steps li:first-child { padding-top: 0; }
+      .minutes .sub { margin-bottom: 40px; }
+      .minutes .after { margin-top: 32px; }
+      .close { padding: 88px 0 96px; }
+    }
     @media (max-width: 640px) {
-      .shell { width: min(calc(100% - 32px), var(--max)); }
-      .header-inner { height: 72px; }
-      .hero { min-height: auto; padding: 32px 24px 40px; }
-      h1 { font-size: 48px; }
-      .hero-copy > p:not(.overline) { font-size: 16px; }
-      .primary-action { width: 100%; min-height: 48px; }
-      .product-deck { min-height: 330px; margin-top: 8px; }
-      .deck-main { width: 92%; height: 276px; top: 24px; }
-      .deck-back-one { width: 64%; height: 184px; }
-      .deck-back-two { width: 60%; height: 176px; }
-      .deck-caption { display: none; }
-      .now-card { grid-template-columns: 1fr; gap: 8px; padding: 24px; }
-      .now-card .text-action { margin-top: 8px; }
-      .work-surface { padding: 32px 24px; }
-      .section-heading { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
-      .section-heading h2, .principles h2, .closing h2 { font-size: 36px; }
-      .workbench { padding: 8px; gap: 16px; }
-      .preview-image-wrap { height: 224px; }
-      .preview-copy { grid-template-columns: 1fr; padding: 24px; }
-      .principles { padding: 32px 24px; }
-      .principle { grid-template-columns: 1fr; gap: 8px; }
-      .closing { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; }
-      footer { align-items: flex-start; flex-direction: column; padding: 24px 0; }
+      body { font-size: 16px; padding-bottom: 76px; }
+      .wrap { width: min(100% - 32px, var(--max)); }
+      .top .book { display: none; }
+      .lede { font-size: 18px; }
+      .hero .book, .close .book, .minutes .book { width: 100%; }
+      .fit li, summary { font-size: 18px; }
+      .dock {
+        display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+        padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(16,43,41,.94); backdrop-filter: blur(8px);
+      }
+      .dock .book { width: 100%; min-height: 52px; box-shadow: none; }
     }
-
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-      .deck-card, .product-deck:hover .deck-card { transform: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <!-- Scaffolded with StyleSeed · github.com/bitjaru/styleseed — safe to remove -->
-  <a class="skip-link" href="#content">Skip to content</a>
+  <a class="skip" href="#content">Skip to content</a>
 
-  <header class="site-header">
-    <div class="header-inner shell">
-      <nav class="header-links" aria-label="Main navigation">
-        <a href="#work">Work</a>
-        <a href="#approach">Approach</a>
-        <a href="#contact">Contact</a>
-      </nav>
+  <header class="wall">
+    <div class="wrap">
+      <div class="top">
+        <a class="name" href="#top">Ryan Shaw</a>
+        <a class="book book-small" data-book href="https://calendly.com/getimproveddigital/mission-control-walkthrough">Book a 30-minute call</a>
+      </div>
+
+      <div class="hero" id="top">
+        <div class="hero-copy">
+          <h1>Put AI to work in your business.</h1>
+          <p class="lede">I'm Ryan Shaw. I ran a marketing agency for 15 years. Now I build AI systems that run real businesses, starting with my own. Give me 30 minutes on Zoom, tell me where you're stuck, and I'll tell you what I would build first.</p>
+          <a class="book" data-book href="https://calendly.com/getimproveddigital/mission-control-walkthrough">Book a 30-minute call</a>
+          <p class="book-note">Free, on Zoom, and you talk to me.</p>
+        </div>
+        <div class="portrait">
+          <img src="assets/ryan-shaw-wall.jpg" alt="Ryan Shaw standing against a green copper wall covered in raised physics equations" width="632" height="844">
+        </div>
+      </div>
     </div>
   </header>
 
-  <main class="page-stack shell" id="content">
-    <section class="surface hero" id="top">
-      <div class="hero-copy">
-        <p class="overline">Founder · product designer · marketer</p>
-          <h1>I build businesses for the AI era.</h1>
-          <p>AI Agency in a Box is the playbook: the offer, systems, product thinking, and campaign habits behind an AI-native agency. I turn the ideas into products people can use and businesses can actually run.</p>
-          <a class="primary-action" href="#work">See what I’m building <span aria-hidden="true">↓</span></a>
-      </div>
-      <div class="product-deck" aria-label="A selection of Ryan's live products">
-        <div class="deck-card deck-back-one"><img src="assets/mission-control.png" alt="Mission Control product homepage" width="1280" height="900"></div>
-        <div class="deck-card deck-back-two"><img src="assets/aios.png" alt="AIOS public handbook" width="1280" height="900"></div>
-        <div class="deck-card deck-main"><img src="assets/siterevive.png" alt="SiteRevive website audit product" width="1280" height="900"></div>
-        <span class="deck-caption">Systems · products · demand</span>
+  <main id="content">
+    <section class="facts on-dark" aria-label="Ryan's background">
+      <div class="wrap">
+        <dl>
+          <div><dt>15 years</dt><dd>running a marketing agency</dd></div>
+          <div><dt>100+</dt><dd>agency clients served</dd></div>
+          <div><dt>$100M+</dt><dd>in online sales, most of it through agency clients</dd></div>
+          <div><dt>15,000+</dt><dd>marketers helped with software, courses and coaching</dd></div>
+        </dl>
       </div>
     </section>
 
-    <section class="surface now-card" id="now">
-      <span class="now-label">Building now</span>
-      <div><h2 class="now-title">AI Agency in a Box</h2><p class="now-copy">The practical playbook for building an AI-native agency: a sharper offer, repeatable systems, and campaigns built around customer value.</p></div>
-      <a class="text-action" href="https://ryan-shaw.mykajabi.com" target="_blank" rel="noopener">Explore the playbook <span aria-hidden="true">↗</span></a>
-    </section>
-
-    <section class="surface work-surface" id="work">
-      <div class="section-heading">
-        <h2>Ideas made real</h2>
-        <p>I work across the whole business: the operating system underneath it, the product at its center, and the story that makes it spread.</p>
-      </div>
-      <div class="workbench">
-        <div class="work-menu" role="tablist" aria-label="Ryan's projects">
-          <button class="work-option" id="tab-siterevive" type="button" role="tab" aria-controls="work-panel" aria-selected="false" tabindex="-1" data-name="SiteRevive" data-description="Turns visible website problems into specific, credible sales conversations—the first step toward better work for both agency and customer." data-image="assets/siterevive.png" data-link="https://siterevive.ryanshaw.xyz">
-            <span><strong>SiteRevive</strong><small>Demand engine</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <button class="work-option" id="tab-mission" type="button" role="tab" aria-controls="work-panel" aria-selected="false" tabindex="-1" data-name="Mission Control" data-description="An AI operating system that connects revenue, audience, calendar, and priorities—then turns them into the next useful action." data-image="assets/mission-control.png" data-link="https://missioncontrol.ryanshaw.xyz">
-            <span><strong>Mission Control</strong><small>AI operating system</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <button class="work-option" id="tab-aios" type="button" role="tab" aria-controls="work-panel" aria-selected="false" tabindex="-1" data-name="AIOS" data-description="A public blueprint for companies where people set the vision, AI coordinates the work, and customers feel the difference." data-image="assets/aios.png" data-link="https://ai.ryanshaw.xyz">
-            <span><strong>AIOS</strong><small>Operating-system blueprint</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <button class="work-option" id="tab-aiab" type="button" role="tab" aria-controls="work-panel" aria-selected="true" tabindex="0" data-name="AI Agency in a Box" data-description="The offer, systems, product thinking, and campaign playbooks behind an AI-native agency—packaged so another founder can build one." data-image="assets/website-rebuild.png" data-link="https://ryan-shaw.mykajabi.com">
-            <span><strong>AI Agency in a Box</strong><small>Business-in-a-box</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <button class="work-option" id="tab-agi" type="button" role="tab" aria-controls="work-panel" aria-selected="false" tabindex="-1" data-name="AGI Watch" data-description="A live product that turns a sprawling AI forecast into a clear signal: what happened, what did not, and what comes next." data-image="assets/agi-watch.png" data-link="https://agi.ryanshaw.xyz">
-            <span><strong>AGI Watch</strong><small>Information product</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
+    <section class="band" id="work">
+      <div class="wrap">
+        <div class="intro">
+          <h2>Everything I would build for you, I already run myself.</h2>
+          <p>Most AI advice comes as a slide deck. Mine comes from systems that are live today. You can open every one of them before we talk.</p>
         </div>
-        <div class="work-preview" id="work-panel" role="tabpanel" aria-labelledby="tab-aiab" aria-live="polite">
-          <div class="preview-image-wrap"><img class="preview-image" id="preview-image" src="assets/website-rebuild.png" alt="AI Agency in a Box product preview" width="1280" height="900" loading="lazy"></div>
-          <div class="preview-copy">
-            <div><h3 id="preview-name">AI Agency in a Box</h3><p id="preview-description">The offer, systems, product thinking, and campaign playbooks behind an AI-native agency—packaged so another founder can build one.</p></div>
-            <a class="text-action" id="preview-link" href="https://ryan-shaw.mykajabi.com" target="_blank" rel="noopener">Open the playbook <span aria-hidden="true">↗</span></a>
-          </div>
+
+        <div class="builds">
+          <article class="build">
+            <div class="shot"><img src="assets/mission-control.png" alt="Mission Control home screen" width="1280" height="900" loading="lazy"></div>
+            <div>
+              <h3>One screen that runs the business</h3>
+              <p>Mission Control pulls revenue, audience, calendar and priorities into one place. Then an AI assistant reads the numbers and plans the day. I can install the same thing around your business.</p>
+              <p class="runs">Live at <a href="https://missioncontrol.ryanshaw.xyz" target="_blank" rel="noopener">missioncontrol.ryanshaw.xyz</a></p>
+            </div>
+          </article>
+
+          <article class="build">
+            <div class="shot"><img src="assets/siterevive.png" alt="SiteRevive website audit screen" width="1280" height="900" loading="lazy"></div>
+            <div>
+              <h3>A system that finds customers</h3>
+              <p>SiteRevive finds local businesses with website problems, shows the problem and starts the sales conversation. I built it as a product. The same thinking works for finding your customers.</p>
+              <p class="runs">Live at <a href="https://siterevive.ryanshaw.xyz" target="_blank" rel="noopener">siterevive.ryanshaw.xyz</a></p>
+            </div>
+          </article>
+
+          <article class="build">
+            <div class="shot"><img src="assets/aios.png" alt="AIOS public handbook" width="1280" height="900" loading="lazy"></div>
+            <div>
+              <h3>A company where AI does the coordinating</h3>
+              <p>AIOS is my public blueprint for a business where people set the direction and AI moves the work along. It is free to read, and it is the plan I would follow to set one up for you.</p>
+              <p class="runs">Live at <a href="https://ai.ryanshaw.xyz" target="_blank" rel="noopener">ai.ryanshaw.xyz</a></p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="surface principles" id="approach">
-      <h2>How remarkable businesses get built</h2>
-      <div class="principle-list">
-        <div class="principle"><strong>Make it matter</strong><p>Great products begin with a truth about the customer. Find the thing that genuinely improves their world, then build around it.</p></div>
-        <div class="principle"><strong>Make it effortless</strong><p>Technology should remove complexity, not display it. The operating system stays behind the scenes so the experience can feel obvious.</p></div>
-        <div class="principle"><strong>Make it spread</strong><p>A great product deserves a great story. Product design and marketing work together until using it—and sharing it—feels inevitable.</p></div>
+    <section class="band minutes" id="call">
+      <div class="wrap">
+        <h2>What we do in 30 minutes</h2>
+        <p class="sub">One Zoom call, the two of us, about your business.</p>
+
+        <ol class="steps">
+          <li>
+            <span class="raised" aria-hidden="true">10<small>min</small></span>
+            <h3>You tell me where you are</h3>
+            <p>What the business does, what you've tried with AI, and where it stopped. Bring a plan or bring nothing.</p>
+          </li>
+          <li>
+            <span class="raised" aria-hidden="true">20<small>min</small></span>
+            <h3>We find the work AI should take</h3>
+            <p>I ask about the jobs that eat your week. We pick the one or two where a system would lift the most off your plate.</p>
+          </li>
+          <li>
+            <span class="raised" aria-hidden="true">30<small>min</small></span>
+            <h3>I tell you what I would build first</h3>
+            <p>You leave with a plain next step you can take with or without me. If you want my help building it, I'll explain how I work.</p>
+          </li>
+        </ol>
+
+        <div class="after">
+          <a class="book" data-book href="https://calendly.com/getimproveddigital/mission-control-walkthrough">Book a 30-minute call</a>
+          <p>Pick a time that suits you. The Zoom link comes by email.</p>
+        </div>
       </div>
     </section>
 
-    <section class="surface closing" id="contact">
-      <h2>Let’s build something remarkable.</h2>
-      <div class="closing-side"><p>If you have an ambitious idea, a product that should be better, or a business ready for its next operating system, let’s talk.</p><a class="primary-action" href="https://calendly.com/getimproveddigital/mission-control-walkthrough" target="_blank" rel="noopener">Start a conversation <span aria-hidden="true">↗</span></a></div>
+    <section class="band">
+      <div class="wrap fit">
+        <h2>This call is worth your time if</h2>
+        <ul>
+          <li>You run a real business with real customers, and the work is piling up faster than you can hire.</li>
+          <li>You've paid for AI tools that nobody on the team uses any more.</li>
+          <li>You want one system that fits how you already work, built by someone who will show you theirs.</li>
+          <li>You would like a straight answer on what AI can and can't do for you this year.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band about">
+      <div class="wrap about-grid">
+        <img src="assets/ryan-shaw-working.jpg" alt="Ryan Shaw working at a laptop" width="1000" height="667" loading="lazy">
+        <div>
+          <h2>Who you'll be talking to</h2>
+          <p>I spent 15 years running a marketing agency. In that time I served more than 100 agency clients and sold more than 30,000 agency programs.</p>
+          <p>Now I build with AI. I design the product, set up the systems underneath it and write the marketing that sells it. So when you describe your business, I can see the whole thing, and I will tell you honestly what I would do next.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap qa">
+        <h2>Before you book</h2>
+        <details>
+          <summary>Is the call really free?</summary>
+          <p>Yes. It costs nothing and you don't need a card to book.</p>
+        </details>
+        <details>
+          <summary>Who is on the call?</summary>
+          <p>Me, Ryan. You won't be handed to a sales rep.</p>
+        </details>
+        <details>
+          <summary>What should I bring?</summary>
+          <p>Your biggest bottleneck and your goal for the next few months. If you have numbers or a plan, bring them. If you don't, come anyway.</p>
+        </details>
+        <details>
+          <summary>Will you try to sell me something?</summary>
+          <p>I'll tell you what I would build first. If you want my help after that, I'll explain how I work with people. If you don't, the next step is still yours to use.</p>
+        </details>
+        <details>
+          <summary>What does it cost to work with you after the call?</summary>
+          <p>It depends on what we decide to build. I'll give you a clear answer on the call once I understand your business.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="close on-dark" id="book">
+      <div class="wrap">
+        <h2>Book your 30 minutes.</h2>
+        <p>Tell me where you're stuck. I'll tell you what I would build first.</p>
+        <a class="book" data-book href="https://calendly.com/getimproveddigital/mission-control-walkthrough">Book a 30-minute call</a>
+        <p class="book-note">Free, on Zoom, and you talk to me.</p>
+      </div>
     </section>
   </main>
 
-  <footer class="shell">
-    <span>© <span id="year">2026</span> Ryan Shaw</span>
-    <div class="social-links"><a href="https://www.youtube.com/@ryanshawme" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/ryanmarketingai/" target="_blank" rel="noopener">Instagram</a><a href="mailto:improveddigital@gmail.com">Email</a></div>
+  <footer class="on-dark">
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Ryan Shaw</span>
+      <nav aria-label="Elsewhere">
+        <a href="https://www.youtube.com/@ryanshawme" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/ryanmarketingai/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:improveddigital@gmail.com">improveddigital@gmail.com</a>
+      </nav>
+    </div>
   </footer>
 
+  <div class="dock">
+    <a class="book" data-book href="https://calendly.com/getimproveddigital/mission-control-walkthrough">Book a 30-minute call</a>
+  </div>
+
   <script>
+    // Every booking button takes its link from here. The same link is also written in each
+    // button's href for visitors without JavaScript, so change both when it changes.
+    const BOOKING_URL = "https://calendly.com/getimproveddigital/mission-control-walkthrough";
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const options = document.querySelectorAll(".work-option");
-    const previewImage = document.getElementById("preview-image");
-    const previewName = document.getElementById("preview-name");
-    const previewDescription = document.getElementById("preview-description");
-    const previewLink = document.getElementById("preview-link");
-    const workPanel = document.getElementById("work-panel");
-
-    const selectProject = (option) => {
-        options.forEach((item) => {
-          item.setAttribute("aria-selected", "false");
-          item.setAttribute("tabindex", "-1");
-        });
-        option.setAttribute("aria-selected", "true");
-        option.setAttribute("tabindex", "0");
-        workPanel.setAttribute("aria-labelledby", option.id);
-        previewImage.classList.add("is-changing");
-        window.setTimeout(() => {
-          previewImage.src = option.dataset.image;
-          previewImage.alt = `${option.dataset.name} product preview`;
-          previewName.textContent = option.dataset.name;
-          previewDescription.textContent = option.dataset.description;
-          previewLink.href = option.dataset.link;
-          previewImage.classList.remove("is-changing");
-        }, 160);
-    };
-
-    options.forEach((option, index) => {
-      option.addEventListener("click", () => selectProject(option));
-      option.addEventListener("keydown", (event) => {
-        let nextIndex = index;
-        if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (index + 1) % options.length;
-        else if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (index - 1 + options.length) % options.length;
-        else if (event.key === "Home") nextIndex = 0;
-        else if (event.key === "End") nextIndex = options.length - 1;
-        else return;
-        event.preventDefault();
-        const nextOption = options[nextIndex];
-        selectProject(nextOption);
-        nextOption.focus();
+    document.querySelectorAll("[data-book]").forEach((link) => {
+      link.href = BOOKING_URL;
+      // Opens the calendar over the page when Calendly's script has loaded.
+      // If it has not, the link simply opens Calendly.
+      link.addEventListener("click", (event) => {
+        if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
+          event.preventDefault();
+          window.Calendly.initPopupWidget({ url: BOOKING_URL });
+        }
       });
     });
   </script>
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
